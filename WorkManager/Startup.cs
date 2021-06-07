@@ -1,9 +1,19 @@
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Text.Json;
+using WorkManager.Data;
+using WorkManager.Data.Entities;
+using WorkManager.ErrorHandling;
+using WorkManager.Validation;
 
 namespace WorkManager
 {
@@ -19,10 +29,38 @@ namespace WorkManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("WorkManager"));
+            });
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPasswordHasher<Account>, PasswordHasher<Account>>();
 
-            services.AddControllersWithViews();
+            services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ValidationFilter>();
+            services.Configure<ApiBehaviorOptions>(opt =>
+            {
+                opt.SuppressModelStateInvalidFilter = true;
+            });
 
-            // In production, the React files will be served from this directory
+            services.AddControllers(options =>
+            {
+                options.Filters.AddService<ValidationFilter>();
+            })
+                .AddNewtonsoftJson()
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            })
+            .AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining(typeof(Startup));
+                //options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                options.DisableDataAnnotationsValidation = true;
+                options.ImplicitlyValidateChildProperties = true;
+            });
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
@@ -36,14 +74,11 @@ namespace WorkManager
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

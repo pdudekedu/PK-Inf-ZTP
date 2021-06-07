@@ -1,0 +1,26 @@
+{
+    "folders": [
+        {
+            "path": "./WorkManager/ClientApp"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            ".git": true,
+            "node_modules": true
+        },
+		"search.exclude": {
+            ".git": true,
+            "node_modules": true
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "javascript.preferences.quoteStyle": "single",
+        "typescript.preferences.quoteStyle": "single",
+        "prettier.jsxSingleQuote": true,
+        "prettier.singleQuote": true,
+        "prettier.tabWidth": 2,
+        "prettier.printWidth": 80
+    }
+}

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkManager", "WorkManager\WorkManager.csproj", "{3606378B-FA0F-4685-A02A-70230D169DBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkManager", "WorkManager\WorkManager.csproj", "{3606378B-FA0F-4685-A02A-70230D169DBD}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WorkManager.Database", "WorkManager.Database\WorkManager.Database.sqlproj", "{524979CC-143E-4765-9044-C40B87B55670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{3606378B-FA0F-4685-A02A-70230D169DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3606378B-FA0F-4685-A02A-70230D169DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3606378B-FA0F-4685-A02A-70230D169DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{524979CC-143E-4765-9044-C40B87B55670}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

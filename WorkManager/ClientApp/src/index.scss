@@ -1,0 +1,32 @@
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #cafafe;
+}
+
+.toast-notification {
+  z-index: 2000 !important;
+  white-space: pre-line !important;
+}
+
+.container-fluid,
+.row-fluid {
+  height: inherit;
+}
+
+.dsc-center-wrapper {
+  height: 100%;
+  position: relative;
+}
+
+.dsc-center-content {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+}
