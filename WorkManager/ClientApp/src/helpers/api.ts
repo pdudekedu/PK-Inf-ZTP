@@ -1,14 +1,15 @@
+import { getCookie, removeCookie } from './cookies';
 import { notifyError, notifyErrors } from './notifications';
-
-interface HttpResponse<T> {
-  statusCode: number;
-  result: T | null;
-}
 
 interface ErrorDetails {
   statusCode: number;
   messages: string[];
 }
+
+type HttpResponse<T> = {
+  statusCode: number;
+  result: T;
+};
 
 export enum HttpStatusCodes {
   OK = 200,
@@ -50,12 +51,18 @@ const http = async <T>(
   body: any | null,
   callback: HttpResponseCallback<T>
 ): Promise<void> => {
+  let headers: { [x: string]: string } = {
+    'Content-Type': 'application/json',
+  };
+  const token = getCookie('auth');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
   const response = await fetch(`/api/${url}`, {
     method: method,
     body: body ? JSON.stringify(body) : null,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
   });
 
   let json: any;
@@ -72,6 +79,10 @@ const http = async <T>(
       result: json,
     });
   } else {
+    if (response.status === 401) {
+      removeCookie('auth');
+    }
+
     if (json && json.statusCode && json.messages) {
       const errorDetails = json as ErrorDetails;
       if (!callback.onFail || !callback.onFail(errorDetails)) {

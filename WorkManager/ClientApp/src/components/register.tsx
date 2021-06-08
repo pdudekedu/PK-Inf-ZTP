@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { register } from '../api/account';
+import { register } from '../api/authorization';
+import { anonymous } from '../authorization/anonymous';
 import { notifySuccess } from '../helpers/notifications';
 import { pages } from '../helpers/pages';
 
-export const Register = () => {
+export const Register = anonymous(() => {
   const history = useHistory();
 
   const [firstName, setFirstName] = useState('');
@@ -32,7 +33,7 @@ export const Register = () => {
   };
 
   return (
-    <div className='dsc-center-wrapper'>
+    <div className='dsc-container dsc-center-wrapper'>
       <form className='dsc-center-content container rounded shadow bg-white p-4'>
         <div className='form-group'>
           <label htmlFor='firstNameInput'>Imię</label>
@@ -86,4 +87,4 @@ export const Register = () => {
       </form>
     </div>
   );
-};
+});

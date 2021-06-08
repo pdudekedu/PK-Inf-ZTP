@@ -1,6 +1,8 @@
 export const pages = {
-  login: '/account/login',
-  logout: '/account/logout',
-  register: '/account/register',
-  board: '/board',
+  login: '/login',
+  logout: '/logout',
+  register: '/register',
+  board: '/projects',
+  users: '/users',
+  profile: '/profile',
 };

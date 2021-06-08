@@ -1,7 +1,7 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: calc(100vh - 56px);
   width: 100%;
   position: absolute;
   background-color: #cafafe;
@@ -10,6 +10,11 @@ body,
 .toast-notification {
   z-index: 2000 !important;
   white-space: pre-line !important;
+}
+
+.dsc-container {
+  margin-top: 56px;
+  min-height: calc(100vh - 56px);
 }
 
 .container-fluid,

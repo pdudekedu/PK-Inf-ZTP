@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { login } from '../api/account';
+import { login as callLogin } from '../api/authorization';
+import { anonymous } from '../authorization/anonymous';
+import { useUserContext } from '../authorization/user-context';
 import { pages } from '../helpers/pages';
 import { getCurrentUrlParameter } from '../helpers/url';
 
-export const Login = () => {
+export const Login = anonymous(() => {
+  const { login } = useUserContext();
   const history = useHistory();
 
   const [inProgress, setInProgress] = useState(false);
@@ -13,14 +16,19 @@ export const Login = () => {
 
   const handleLogin = () => {
     setInProgress(true);
-    login(
+    callLogin(
       {
         userName,
         password,
       },
       {
-        onSuccess: () => {
+        onSuccess: (response) => {
           const returnUrl = getCurrentUrlParameter('ReturnUrl');
+
+          const { id, userName, firstName, lastName, role } = response.result;
+
+          login({ id, userName, firstName, lastName, role });
+
           setTimeout(() => {
             if (returnUrl) {
               history.push(returnUrl);
@@ -39,7 +47,7 @@ export const Login = () => {
 
   if (inProgress) {
     return (
-      <div className='dsc-center-wrapper'>
+      <div className='dsc-container dsc-center-wrapper'>
         <div className='dsc-center-content container rounded shadow bg-white p-4 text-center'>
           <div className='h4'>Weryfikacja poświadczeń...</div>
         </div>
@@ -48,7 +56,7 @@ export const Login = () => {
   }
 
   return (
-    <div className='dsc-center-wrapper'>
+    <div className='dsc-container dsc-center-wrapper'>
       <form className='dsc-center-content container rounded shadow bg-white p-4'>
         <div className='form-group'>
           <label htmlFor='userNameInput'>Nazwa użytkownika</label>
@@ -82,4 +90,4 @@ export const Login = () => {
       </form>
     </div>
   );
-};
+});

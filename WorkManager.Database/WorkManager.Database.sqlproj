@@ -59,7 +59,7 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\Accounts.sql" />
+    <Build Include="Tables\Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PD.publish.xml" />

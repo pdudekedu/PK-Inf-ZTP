@@ -10,10 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text.Json;
-using WorkManager.Data;
-using WorkManager.Data.Entities;
-using WorkManager.ErrorHandling;
-using WorkManager.Validation;
+using WorkManager.Infrastructure.Authorization;
+using WorkManager.Persistence;
+using WorkManager.Persistence.Entities;
+using WorkManager.Infrastructure.Validation;
+using WorkManager.Infrastructure.ErrorHandling;
 
 namespace WorkManager
 {
@@ -34,10 +35,12 @@ namespace WorkManager
                 options.UseSqlServer(Configuration.GetConnectionString("WorkManager"));
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IPasswordHasher<Account>, PasswordHasher<Account>>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IUserContext, UserContext>();
 
             services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(typeof(Startup));
+
             services.AddScoped<ValidationFilter>();
             services.Configure<ApiBehaviorOptions>(opt =>
             {
@@ -56,11 +59,12 @@ namespace WorkManager
             .AddFluentValidation(options =>
             {
                 options.RegisterValidatorsFromAssemblyContaining(typeof(Startup));
-                //options.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 options.DisableDataAnnotationsValidation = true;
                 options.ImplicitlyValidateChildProperties = true;
             });
 
+            services.Configure<JwtConfig>(Configuration.GetSection(JwtConfig.SectionKey));
+            
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
@@ -79,7 +83,10 @@ namespace WorkManager
             app.UseSpaStaticFiles();
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.UseRouting();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
