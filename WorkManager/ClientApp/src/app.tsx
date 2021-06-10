@@ -32,6 +32,15 @@ export const App = () => {
   }, []);
 
   const login = useCallback((user: User) => setUser(user), []);
+
+  const updatePersonalInfo = useCallback(
+    (firstName: string, lastName: string) =>
+      setUser((u) =>
+        u && u !== 'unverified' ? { ...u, firstName, lastName } : u
+      ),
+    []
+  );
+
   const logout = useCallback(() => {
     removeCookie('auth');
     setUser(null);
@@ -43,7 +52,7 @@ export const App = () => {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, login, logout }}>
+      <UserContext.Provider value={{ user, login, logout, updatePersonalInfo }}>
         <Notifications />
         <NavBar />
         <div className='dsc-container'>

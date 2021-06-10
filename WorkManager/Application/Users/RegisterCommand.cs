@@ -39,7 +39,7 @@ namespace WorkManager.Application.Users
 
             _unitOfWork.Users.AddAsync(user);
 
-            await _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
 
             return user;
         }

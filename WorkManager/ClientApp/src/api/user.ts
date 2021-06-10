@@ -1,4 +1,4 @@
-import { get, HttpResponseCallback } from '../helpers/api';
+import { get, post, HttpResponseCallback } from '../helpers/api';
 
 export enum UserRole {
   Worker = 0,
@@ -13,8 +13,28 @@ export interface User {
   role: UserRole;
 }
 
+export interface UpdateCurrentUserPersonalInfoRequestDto {
+  firstName: string;
+  lastName: string;
+}
+
+export interface UpdateCurrentUserPasswordRequestDto {
+  oldPassword: string;
+  password: string;
+}
+
 export const getCurrentUser = async (callback: HttpResponseCallback<User>) =>
   get<User>('users/current', callback);
+
+export const updateCurrentUserPersonalInfo = async (
+  request: UpdateCurrentUserPersonalInfoRequestDto,
+  callback: HttpResponseCallback<User>
+) => post<User>('users/current/personal-info', request, callback);
+
+export const updateCurrentUserPassword = async (
+  request: UpdateCurrentUserPasswordRequestDto,
+  callback: HttpResponseCallback<User>
+) => post<User>('users/current/password', request, callback);
 
 export const getUsers = async (callback: HttpResponseCallback<User[]>) =>
   get<User[]>('users', callback);

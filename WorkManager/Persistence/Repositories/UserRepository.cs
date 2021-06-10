@@ -14,19 +14,24 @@ namespace WorkManager.Persistence.Repositories
             _context = context;
         }
 
-        public Task<User> GetAsync(int id)
+        public async Task<User> GetAsync(int id)
         {
-            return _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<List<User>> GetAllAsync()
+        public async Task<List<User>> GetAllAsync()
         {
-            return _context.Users.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        public Task<User> GetByUserNameAsync(string userName)
+        public async Task<User> GetByUserNameAsync(string userName)
         {
-            return _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+        }
+
+        public void UpdateAsync(User user)
+        {
+            _context.Update(user);
         }
 
         public void AddAsync(User user)

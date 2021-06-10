@@ -23,15 +23,6 @@ namespace WorkManager.Presentation.Users
             _mapper = mapper;
         }
 
-        [Authorize]
-        [HttpGet("current")]
-        public async Task<ActionResult<UserDto>> Login()
-        {
-            var user = await _mediator.Send(new GetCurrentUserQuery());
-
-            return _mapper.Map<UserDto>(user);
-        }
-
         [HttpGet()]
         public async Task<ActionResult<List<UserDto>>> GetUsers()
         {

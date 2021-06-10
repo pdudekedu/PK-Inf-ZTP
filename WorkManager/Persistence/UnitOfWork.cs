@@ -5,7 +5,7 @@ namespace WorkManager.Persistence
 {
     public interface IUnitOfWork
     {
-        Task Commit();
+        Task CommitAsync();
         UserRepository Users { get; }
     }
     public class UnitOfWork : IUnitOfWork
@@ -20,7 +20,7 @@ namespace WorkManager.Persistence
 
         public UserRepository Users { get; }
 
-        public async Task Commit()
+        public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();
         }

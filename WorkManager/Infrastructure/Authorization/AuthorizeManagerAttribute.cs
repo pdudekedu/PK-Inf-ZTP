@@ -19,7 +19,7 @@ namespace WorkManager.Infrastructure.Authorization
 
             if (user.Role != UserRole.Manager)
             {
-                throw new ForbiddenException("Użytkownik nie posiada odpowienich uprawnień");
+                throw new ForbiddenException("Użytkownik nie posiada odpowiednich uprawnień");
             }
         }
     }
