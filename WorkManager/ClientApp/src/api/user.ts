@@ -1,9 +1,12 @@
-import { get, post, HttpResponseCallback } from '../helpers/api';
+import { get, post, HttpResponseCallback, put, del } from '../helpers/api';
 
 export enum UserRole {
   Worker = 0,
   Manager = 1,
 }
+
+export const getUserRoleName = (user: User) =>
+  user.role === UserRole.Manager ? 'Menadżer' : 'Pracownik';
 
 export interface User {
   id: number;
@@ -13,14 +16,21 @@ export interface User {
   role: UserRole;
 }
 
-export interface UpdateCurrentUserPersonalInfoRequestDto {
+interface UpdateCurrentUserPersonalInfoRequestDto {
   firstName: string;
   lastName: string;
 }
 
-export interface UpdateCurrentUserPasswordRequestDto {
+interface UpdateCurrentUserPasswordRequestDto {
   oldPassword: string;
   password: string;
+}
+
+interface UpdateUserRequestDto {
+  firstName: string;
+  lastName: string;
+  password: string;
+  role: UserRole;
 }
 
 export const getCurrentUser = async (callback: HttpResponseCallback<User>) =>
@@ -38,3 +48,14 @@ export const updateCurrentUserPassword = async (
 
 export const getUsers = async (callback: HttpResponseCallback<User[]>) =>
   get<User[]>('users', callback);
+
+export const updateUser = async (
+  id: number,
+  request: UpdateUserRequestDto,
+  callback: HttpResponseCallback<User>
+) => put<User>(`users/${encodeURIComponent(id)}`, request, callback);
+
+export const removeUser = async (
+  id: number,
+  callback: HttpResponseCallback<User>
+) => del<User>(`users/${encodeURIComponent(id)}`, callback);

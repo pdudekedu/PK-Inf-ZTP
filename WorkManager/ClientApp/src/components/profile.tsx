@@ -46,7 +46,7 @@ export const Profile = authenticated(() => {
         password,
       },
       {
-        onSuccess: (response) => {
+        onSuccess: () => {
           setOldPassword('');
           setPassword('');
 

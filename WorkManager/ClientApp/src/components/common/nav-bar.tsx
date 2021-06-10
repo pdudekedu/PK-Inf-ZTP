@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { UserRole } from '../../api/user';
+import { getUserRoleName, UserRole } from '../../api/user';
 import { useUserContext } from '../../authorization/user-context';
 import { pages } from '../../helpers/pages';
 
@@ -33,7 +33,7 @@ export const NavBar = () => {
             aria-labelledby='navbarUserActionsDropdown'
           >
             <div className='small text-center text-secondary'>
-              {user.role === UserRole.Manager ? 'Menadżer' : 'Pracownik'}
+              {getUserRoleName(user)}
             </div>
             <div className='dropdown-divider'></div>
             <Link className='dropdown-item' to={pages.profile}>

@@ -37,7 +37,7 @@ namespace WorkManager.Application.Users
 
             user.Password = _passwordHasher.HashPassword(user, request.Password);
 
-            _unitOfWork.Users.AddAsync(user);
+            _unitOfWork.Users.Add(user);
 
             await _unitOfWork.CommitAsync();
 

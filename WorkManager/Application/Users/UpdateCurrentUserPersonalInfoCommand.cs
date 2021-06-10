@@ -31,7 +31,7 @@ namespace WorkManager.Application.Users
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
 
-            _unitOfWork.Users.UpdateAsync(user);
+            _unitOfWork.Users.Update(user);
 
             await _unitOfWork.CommitAsync();
 

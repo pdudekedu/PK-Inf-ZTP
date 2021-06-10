@@ -30,5 +30,25 @@ namespace WorkManager.Presentation.Users
 
             return _mapper.Map<List<UserDto>>(users);
         }
+
+        [HttpPut("{userId:int}")]
+        public async Task<ActionResult<UserDto>> UpdateUser(
+            [FromRoute] int userId, [FromBody] UpdateUserRequestDto requestDto)
+        {
+            var command = _mapper.Map<UpdateUserCommand>(requestDto);
+            command.Id = userId;
+
+            var updatedUser = await _mediator.Send(command);
+
+            return _mapper.Map<UserDto>(updatedUser);
+        }
+
+        [HttpDelete("{userId:int}")]
+        public async Task<ActionResult<UserDto>> RemoveUser([FromRoute] int userId)
+        {
+            var removedUser = await _mediator.Send(new RemoveUserCommand { Id = userId });
+
+            return _mapper.Map<UserDto>(removedUser);
+        }
     }
 }

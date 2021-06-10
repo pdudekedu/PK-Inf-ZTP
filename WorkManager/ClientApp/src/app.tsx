@@ -5,7 +5,7 @@ import { pages } from './helpers/pages';
 import { Login } from './components/login';
 import { Register } from './components/register';
 import { Board } from './components/board';
-import { Users } from './components/users';
+import { Users } from './components/users/users';
 import { getCurrentUser, User } from './api/user';
 import { UserContext } from './authorization/user-context';
 import { getCookie, removeCookie } from './helpers/cookies';

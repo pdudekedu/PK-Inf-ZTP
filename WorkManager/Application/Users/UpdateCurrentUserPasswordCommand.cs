@@ -40,7 +40,7 @@ namespace WorkManager.Application.Users
 
             user.Password = _passwordHasher.HashPassword(user, request.Password);
 
-            _unitOfWork.Users.UpdateAsync(user);
+            _unitOfWork.Users.Update(user);
 
             await _unitOfWork.CommitAsync();
 
