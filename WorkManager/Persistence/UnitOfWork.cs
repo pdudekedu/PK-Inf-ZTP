@@ -7,6 +7,7 @@ namespace WorkManager.Persistence
     {
         Task CommitAsync();
         UserRepository Users { get; }
+        ResourceRepository Resources { get; }
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -16,9 +17,11 @@ namespace WorkManager.Persistence
         {
             _context = context;
             Users = new UserRepository(context);
+            Resources = new ResourceRepository(context);
         }
 
         public UserRepository Users { get; }
+        public ResourceRepository Resources { get; }
 
         public async Task CommitAsync()
         {

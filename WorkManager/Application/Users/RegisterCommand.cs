@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
+using WorkManager.Infrastructure.ErrorHandling.Exceptions;
 using WorkManager.Persistence;
 using WorkManager.Persistence.Entities;
 
@@ -28,6 +29,11 @@ namespace WorkManager.Application.Users
 
         public async Task<User> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
+            if(await _unitOfWork.Users.ExistsWithUserNameAsync(request.UserName))
+            {
+                throw new ConflictException("Użytkownik o podanej nazwie już istnieje");
+            }
+
             var user = new User
             {
                 UserName = request.UserName,

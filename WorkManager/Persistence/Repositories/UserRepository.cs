@@ -14,7 +14,12 @@ namespace WorkManager.Persistence.Repositories
 
         public async Task<User> GetByUserNameAsync(string userName)
         {
-            return await Context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            return await InUse.FirstOrDefaultAsync(x => x.UserName == userName);
+        }
+
+        public async Task<bool> ExistsWithUserNameAsync(string userName)
+        {
+            return await InUse.AnyAsync(x => x.UserName == userName);
         }
     }
 }

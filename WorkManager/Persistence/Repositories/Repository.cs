@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WorkManager.Persistence.Entities;
 
@@ -14,29 +15,44 @@ namespace WorkManager.Persistence.Repositories
             Context = context;
         }
 
+        protected IQueryable<T> InUse => Context.Set<T>().Where(x => x.InUse);
+
         public virtual async Task<T> GetAsync(int id)
         {
-            return await Context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            return await Context.Set<T>().FirstOrDefaultAsync(x => x.Id == id && x.InUse);
         }
 
         public virtual async Task<List<T>> GetAllAsync()
         {
-            return await Context.Set<T>().ToListAsync();
+            return await InUse.ToListAsync();
         }
 
-        public virtual void Update(T user)
+        public virtual void Update(T entity)
         {
-            Context.Set<T>().Update(user);
+            Context.Set<T>().Update(entity);
         }
 
-        public virtual void Add(T user)
+        public async virtual Task<T> RemoveAsync(int id)
         {
-            Context.Set<T>().Add(user);
+            var entity = await GetAsync(id);
+
+            if(entity != null)
+            {
+                entity.InUse = false;
+                Context.Set<T>().Update(entity);
+            }
+
+            return entity;
         }
 
-        public virtual void Remove(T user)
+        public virtual void Add(T entity)
         {
-            Context.Set<T>().Remove(user);
+            Context.Set<T>().Add(entity);
+        }
+
+        public virtual void Remove(T entity)
+        {
+            Context.Set<T>().Remove(entity);
         }
     }
 }

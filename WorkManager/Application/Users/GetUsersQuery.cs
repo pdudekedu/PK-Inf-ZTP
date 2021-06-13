@@ -9,8 +9,7 @@ namespace WorkManager.Application.Users
 {
     public class GetUsersQuery : IRequest<List<User>>
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+
     }
 
     public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, List<User>>
