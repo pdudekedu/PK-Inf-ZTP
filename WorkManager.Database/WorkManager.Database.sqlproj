@@ -61,6 +61,8 @@
   <ItemGroup>
     <Build Include="Tables\Users.sql" />
     <Build Include="Tables\Resources.sql" />
+    <Build Include="Tables\Teams.sql" />
+    <Build Include="Tables\Team_User.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PD.publish.xml" />

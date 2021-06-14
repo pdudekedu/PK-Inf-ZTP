@@ -11,14 +11,12 @@ namespace WorkManager.Persistence
 
         public DbSet<User> Users { get; set; }
         public DbSet<Resource> Resources { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Team_User> Team_Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>(user =>
-            {
-                user.Property(x => x.Role).HasConversion(d => (int)d, s => (UserRole)s);
-            });
-
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }
