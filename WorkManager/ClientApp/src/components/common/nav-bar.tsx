@@ -70,6 +70,11 @@ export const NavBar = () => {
               Tablica
             </Link>
           </li>
+          <li className={getLinkClass(pages.resources)} key='nav-resources'>
+            <Link className='nav-link' to={pages.resources}>
+              Zasoby
+            </Link>
+          </li>
           <li className={getLinkClass(pages.users)} key='nav-users'>
             <Link className='nav-link' to={pages.users}>
               Użytkownicy
