@@ -28,6 +28,11 @@ namespace WorkManager.Application.Teams
 
         public async Task<Team> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
+            if (!await _unitOfWork.Users.ExistsUsersAsync(request.Users))
+            {
+                throw new ConflictException("Wystąpił problem podczas dodwania użytkowników do zespołu.");
+            }
+
             var team = new Team
             {
                 Name = request.Name,
