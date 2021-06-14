@@ -6,6 +6,7 @@ import { Login } from './components/login';
 import { Register } from './components/register';
 import { Board } from './components/board';
 import { Users } from './components/users/users';
+import { Resources } from './components/resources/resources';
 import { getCurrentUser, User } from './api/user';
 import { UserContext } from './authorization/user-context';
 import { getCookie, removeCookie } from './helpers/cookies';
@@ -62,6 +63,7 @@ export const App = () => {
             <Route exact path={pages.profile} component={Profile}></Route>
             <Route exact path={pages.board} component={Board}></Route>
             <Route exact path={pages.users} component={Users}></Route>
+            <Route exact path={pages.resources} component={Resources}></Route>
             <Route render={() => <Redirect to={pages.board} />} />
           </Switch>
         </div>

@@ -1,17 +1,15 @@
 import React from 'react';
 
-export const FormInput = ({
+export const FormTextArea = ({
   id,
   label,
   value,
-  type,
   maxLength,
   onChange,
 }: {
   id: string;
   label: string;
   value: string;
-  type?: 'text' | 'password';
   maxLength?: number;
   onChange: (value: string) => void;
 }) => {
@@ -20,8 +18,7 @@ export const FormInput = ({
   return (
     <div className='form-group'>
       <label htmlFor={forId}>{label}</label>
-      <input
-        type={type ?? 'text'}
+      <textarea
         className='form-control'
         id={forId}
         value={value}
