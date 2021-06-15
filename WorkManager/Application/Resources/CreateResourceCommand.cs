@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
-using WorkManager.Infrastructure.ErrorHandling.Exceptions;
 using WorkManager.Persistence;
 using WorkManager.Persistence.Entities;
 

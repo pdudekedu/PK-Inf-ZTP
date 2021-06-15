@@ -1,16 +1,12 @@
 ﻿using FluentAssertions;
 using NSubstitute;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorkManager.Application.Resources;
 using WorkManager.Infrastructure.ErrorHandling.Exceptions;
 using WorkManager.Persistence;
 using WorkManager.Persistence.Entities;
-using WorkManager.Persistence.Repositories;
 using Xunit;
+using Task = System.Threading.Tasks.Task;
 
 namespace WorkManager.Tests.Resources
 {

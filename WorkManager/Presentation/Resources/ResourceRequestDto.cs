@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WorkManager.Application.Resources;
-using WorkManager.Persistence.Entities;
 
 namespace WorkManager.Presentation.Resources
 {
