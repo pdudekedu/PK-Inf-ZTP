@@ -179,7 +179,10 @@ export const EditTeamPanel = ({
               onChange={setUserToAdd}
               onClick={handleAddUser}
             />
-            <div className='d-flex flex-wrap align-items-start bg-white wm-items-container'>
+            <div
+              data-testid='users-container'
+              className='d-flex flex-wrap align-items-start bg-white wm-items-container'
+            >
               {users.map(({ id, firstName, lastName }) => (
                 <span
                   key={id}

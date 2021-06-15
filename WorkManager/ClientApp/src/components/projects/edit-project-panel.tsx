@@ -235,7 +235,10 @@ export const EditProjectPanel = ({
               onChange={setResourceToAdd}
               onClick={handleAddResource}
             />
-            <div className='d-flex flex-wrap align-items-start bg-white wm-items-container'>
+            <div
+              data-testid='resources-container'
+              className='d-flex flex-wrap align-items-start bg-white wm-items-container'
+            >
               {resources.map(({ id, name }) => (
                 <span
                   key={id}
