@@ -25,12 +25,10 @@ namespace WorkManager.Application.Tasks
     public class UpdateTaskCommandHandler : IRequestHandler<UpdateTaskCommand, Persistence.Entities.Task>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserContext _userContext;
 
-        public UpdateTaskCommandHandler(IUnitOfWork unitOfWork, IUserContext userContext)
+        public UpdateTaskCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _userContext = userContext;
         }
 
         public async Task<Persistence.Entities.Task> Handle(UpdateTaskCommand request, CancellationToken cancellationToken)

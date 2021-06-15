@@ -24,12 +24,10 @@ namespace WorkManager.Application.Tasks
     public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Persistence.Entities.Task>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserContext _userContext;
 
-        public CreateTaskCommandHandler(IUnitOfWork unitOfWork, IUserContext userContext)
+        public CreateTaskCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _userContext = userContext;
         }
 
         public async Task<Persistence.Entities.Task> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
@@ -42,7 +40,7 @@ namespace WorkManager.Application.Tasks
                 ProjectId = request.ProjectId,
                 EstimateStart = request.EstimateStart,
                 EstimateEnd = request.EstimateEnd,
-                UserId = _userContext.User.Id
+                UserId = request.UserId
             };
 
             _unitOfWork.Tasks.Add(Task);

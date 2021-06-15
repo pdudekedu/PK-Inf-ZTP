@@ -22,6 +22,13 @@ namespace WorkManager.Application.Tasks
     public class UpdateTaskStateCommandHandler : IRequestHandler<UpdateTaskStateCommand, Persistence.Entities.Task>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly Dictionary<TaskState, List<TaskState>> allowState = new()
+        {
+            { TaskState.New, new() { TaskState.InProgress } },
+            { TaskState.InProgress, new() { TaskState.Waiting, TaskState.Done } },
+            { TaskState.Waiting, new() { TaskState.InProgress, TaskState.Done } },
+            { TaskState.Done, new() { TaskState.InProgress } }
+        };
 
         public UpdateTaskStateCommandHandler(IUnitOfWork unitOfWork)
         {
@@ -36,6 +43,11 @@ namespace WorkManager.Application.Tasks
             if (Task == null)
             {
                 throw new NotFoundException("Zespół o podanym id nie istnieje");
+            }
+
+            if (!allowState[Task.State].Contains(request.State))
+            {
+                throw new ConflictException("Niepoprawna próba zmiany statusu.");
             }
 
             Task.State = request.State;
