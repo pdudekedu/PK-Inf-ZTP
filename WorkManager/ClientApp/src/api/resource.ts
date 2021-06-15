@@ -8,7 +8,7 @@ export interface ResourceDto {
 
 interface ResourceRequestDto {
   name: string;
-  description: string;
+  description: string | null;
 }
 
 export const getResources = async (

@@ -7,14 +7,15 @@ import { Register } from './components/register';
 import { Board } from './components/board';
 import { Users } from './components/users/users';
 import { Resources } from './components/resources/resources';
-import { getCurrentUser, User } from './api/user';
+import { Teams } from './components/teams/teams';
+import { getCurrentUser, UserDto } from './api/user';
 import { UserContext } from './authorization/user-context';
 import { getCookie, removeCookie } from './helpers/cookies';
 import { Profile } from './components/profile';
 import { NavBar } from './components/common/nav-bar';
 
 export const App = () => {
-  const [user, setUser] = useState<User | null | 'unverified'>('unverified');
+  const [user, setUser] = useState<UserDto | null | 'unverified'>('unverified');
 
   useEffect(() => {
     if (getCookie('auth')) {
@@ -32,7 +33,7 @@ export const App = () => {
     }
   }, []);
 
-  const login = useCallback((user: User) => setUser(user), []);
+  const login = useCallback((user: UserDto) => setUser(user), []);
 
   const updatePersonalInfo = useCallback(
     (firstName: string, lastName: string) =>
@@ -64,6 +65,7 @@ export const App = () => {
             <Route exact path={pages.board} component={Board}></Route>
             <Route exact path={pages.users} component={Users}></Route>
             <Route exact path={pages.resources} component={Resources}></Route>
+            <Route exact path={pages.teams} component={Teams}></Route>
             <Route render={() => <Redirect to={pages.board} />} />
           </Switch>
         </div>

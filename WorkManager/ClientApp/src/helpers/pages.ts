@@ -6,4 +6,5 @@ export const pages = {
   board: '/projects',
   users: '/users',
   resources: '/resources',
+  teams: '/teams',
 };
