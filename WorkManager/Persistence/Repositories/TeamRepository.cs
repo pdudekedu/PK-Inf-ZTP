@@ -12,11 +12,16 @@ namespace WorkManager.Persistence.Repositories
         {
 
         }
+        public async override Task<Team> GetAsync(int id)
+        {
+            return await InUse
+                .Include(x => x.Users)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
         public async override Task<List<Team>> GetAllAsync()
         {
-            return await Context.Teams
+            return await InUse
                 .Include(x => x.Users)
-                .Where(x => x.InUse)
                 .ToListAsync();
         }
     }

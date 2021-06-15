@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WorkManager.Infrastructure.ErrorHandling.Exceptions;
@@ -35,8 +36,12 @@ namespace WorkManager.Application.Teams
                 throw new NotFoundException("Zespół o podanym id nie istnieje");
             }
 
+            var toAdded = await _unitOfWork.Users.GetUsersById(request.Users.Where(x => !Team.Users.Any(y => y.Id == x)));
+
             Team.Name = request.Name;
             Team.Description = request.Description;
+            Team.Users.AddRange(toAdded);
+            Team.Users.RemoveAll(x=> !request.Users.Contains(x.Id));
 
             _unitOfWork.Teams.Update(Team);
 
