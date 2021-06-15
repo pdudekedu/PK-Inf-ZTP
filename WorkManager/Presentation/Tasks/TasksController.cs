@@ -56,6 +56,19 @@ namespace WorkManager.Presentation.Tasks
             return _mapper.Map<TaskDto>(updated);
         }
 
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<TaskDto>> UpdateState(
+           [FromRoute] int projectId, [FromRoute] int id, [FromBody] TaskStateRequestDto requestDto)
+        {
+            var command = _mapper.Map<UpdateTaskStateCommand>(requestDto);
+            command.ProjectId = projectId;
+            command.Id = id;
+
+            var updated = await _mediator.Send(command);
+
+            return _mapper.Map<TaskDto>(updated);
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<TaskDto>> Remove([FromRoute] int projectId, [FromRoute] int id)
         {

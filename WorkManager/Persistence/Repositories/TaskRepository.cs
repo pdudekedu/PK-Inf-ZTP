@@ -8,6 +8,7 @@ namespace WorkManager.Persistence.Repositories
     public interface ITaskRepository : IRepository<Entities.Task>
     {
         Task<List<Entities.Task>> GetByProjectId(int projectId);
+        Task<Entities.Task> GetByProjectId(int projectId, int id);
     }
 
     public class TaskRepository : Repository<Persistence.Entities.Task>, ITaskRepository
@@ -19,6 +20,10 @@ namespace WorkManager.Persistence.Repositories
         public async Task<List<Entities.Task>> GetByProjectId(int projectId)
         {
             return await Context.Tasks.Where(x => x.ProjectId == projectId).ToListAsync();
+        }
+        public async Task<Entities.Task> GetByProjectId(int projectId, int id)
+        {
+            return await Context.Tasks.FirstOrDefaultAsync(x => x.ProjectId == projectId && x.Id == id);
         }
     }
 }
