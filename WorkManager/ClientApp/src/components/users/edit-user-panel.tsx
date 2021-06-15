@@ -6,7 +6,7 @@ import { FormSelect, FormSelectOption } from '../common/form-select';
 
 const roleOptions: FormSelectOption[] = [
   { value: UserRole.Worker, label: 'Pracownik' },
-  { value: UserRole.Manager, label: 'Manager' },
+  { value: UserRole.Manager, label: 'Menadżer' },
 ];
 
 export const EditUserPanel = ({

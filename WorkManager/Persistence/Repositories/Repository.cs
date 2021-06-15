@@ -6,7 +6,18 @@ using WorkManager.Persistence.Entities;
 
 namespace WorkManager.Persistence.Repositories
 {
-    public class Repository<T> where T: Entity
+    public interface IRepository<T> where T : Entity
+    {
+        Task<T> GetAsync(int id);
+        Task<List<T>> GetAllAsync();
+        Task<List<T>> GetByIdsAsync(IEnumerable<int> ids);
+        void Update(T entity);
+        Task<T> RemoveAsync(int id);
+        void Add(T entity);
+        void Remove(T entity);
+    }
+
+    public class Repository<T> : IRepository<T> where T: Entity
     {
         protected readonly DataContext Context;
 
