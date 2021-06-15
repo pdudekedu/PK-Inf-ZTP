@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkManager.Application.Users;
 using WorkManager.Infrastructure.Authorization;

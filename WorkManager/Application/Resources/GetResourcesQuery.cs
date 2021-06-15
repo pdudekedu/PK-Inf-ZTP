@@ -21,7 +21,7 @@ namespace WorkManager.Application.Resources
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Resource>> Handle(GetResourcesQuery request, CancellationToken cancellationToken)
+        public async Task<List<Resource>> Handle(GetResourcesQuery request, CancellationToken cancellationToken = default)
         {
             var resources = await _unitOfWork.Resources.GetAllAsync();
 

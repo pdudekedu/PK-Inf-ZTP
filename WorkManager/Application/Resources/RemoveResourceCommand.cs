@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
 using WorkManager.Infrastructure.ErrorHandling.Exceptions;
@@ -22,7 +21,7 @@ namespace WorkManager.Application.Resources
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Resource> Handle(RemoveResourceCommand request, CancellationToken cancellationToken)
+        public async Task<Resource> Handle(RemoveResourceCommand request, CancellationToken cancellationToken = default)
         {
             var resource = await _unitOfWork.Resources.RemoveAsync(request.Id);
 

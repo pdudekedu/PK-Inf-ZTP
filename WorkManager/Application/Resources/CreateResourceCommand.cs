@@ -1,8 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
-using WorkManager.Infrastructure.ErrorHandling.Exceptions;
 using WorkManager.Persistence;
 using WorkManager.Persistence.Entities;
 
@@ -23,7 +21,7 @@ namespace WorkManager.Application.Resources
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Resource> Handle(CreateResourceCommand request, CancellationToken cancellationToken)
+        public async Task<Resource> Handle(CreateResourceCommand request, CancellationToken cancellationToken = default)
         {
             var resource = new Resource
             {
