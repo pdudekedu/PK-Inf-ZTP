@@ -10,6 +10,7 @@ namespace WorkManager.Persistence
         ResourceRepository Resources { get; }
         TeamRepository Teams { get; }
         ProjectRepository Projects { get; }
+        TaskRepository Tasks { get; }
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -21,6 +22,7 @@ namespace WorkManager.Persistence
             Users = new(context);
             Resources = new(context);
             Teams = new(context);
+            Tasks = new(context);
             Projects = new(context);
         }
 
@@ -28,7 +30,7 @@ namespace WorkManager.Persistence
         public ResourceRepository Resources { get; }
         public TeamRepository Teams { get; }
         public ProjectRepository Projects { get; }
-
+        public TaskRepository Tasks { get; }
 
         public async Task CommitAsync()
         {

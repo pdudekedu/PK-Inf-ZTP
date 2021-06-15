@@ -12,6 +12,7 @@ namespace WorkManager.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Task> Tasks { get; set; }
         public DbSet<Team_User> Team_Users { get; set; }
         public DbSet<Project> Projects { get; set; }
 
