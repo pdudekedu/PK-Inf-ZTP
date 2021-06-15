@@ -23,7 +23,7 @@ namespace WorkManager.Application.Resources
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Resource> Handle(CreateResourceCommand request, CancellationToken cancellationToken)
+        public async Task<Resource> Handle(CreateResourceCommand request, CancellationToken cancellationToken = default)
         {
             var resource = new Resource
             {

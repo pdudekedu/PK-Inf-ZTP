@@ -22,7 +22,7 @@ namespace WorkManager.Application.Resources
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Resource> Handle(RemoveResourceCommand request, CancellationToken cancellationToken)
+        public async Task<Resource> Handle(RemoveResourceCommand request, CancellationToken cancellationToken = default)
         {
             var resource = await _unitOfWork.Resources.RemoveAsync(request.Id);
 
