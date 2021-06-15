@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 
 namespace WorkManager.Persistence.Repositories
 {
-    public class TaskRepository : Repository<Persistence.Entities.Task>
+    public interface ITaskRepository : IRepository<Entities.Task>
+    {
+        Task<List<Entities.Task>> GetByProjectId(int projectId);
+    }
+
+    public class TaskRepository : Repository<Persistence.Entities.Task>, ITaskRepository
     {
         public TaskRepository(DataContext context) : base(context)
         {
