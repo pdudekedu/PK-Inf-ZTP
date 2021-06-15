@@ -3,7 +3,9 @@ export const pages = {
   logout: '/logout',
   register: '/register',
   profile: '/profile',
-  board: '/projects',
+  board: '/board',
   users: '/users',
   resources: '/resources',
+  teams: '/teams',
+  projects: '/projects',
 };

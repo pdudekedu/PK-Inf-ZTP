@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
-import { User } from '../api/user';
+import { UserDto } from '../api/user';
 
 export const UserContext = createContext<{
-  user: User | null;
-  login: (user: User) => void;
+  user: UserDto | null;
+  login: (user: UserDto) => void;
   updatePersonalInfo: (firstName: string, lastName: string) => void;
   logout: () => void;
 }>({

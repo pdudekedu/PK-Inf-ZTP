@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { removeUser, updateUser, User, UserRole } from '../../api/user';
+import { removeUser, updateUser, UserDto, UserRole } from '../../api/user';
 import { notifySuccess } from '../../helpers/notifications';
 import { FormInput } from '../common/form-input';
 import { FormSelect, FormSelectOption } from '../common/form-select';
@@ -15,9 +15,9 @@ export const EditUserPanel = ({
   onRemoved,
   onCancel,
 }: {
-  user: User | null;
-  onUpdated: (user: User) => void;
-  onRemoved: (user: User) => void;
+  user: UserDto | null;
+  onUpdated: (user: UserDto) => void;
+  onRemoved: (user: UserDto) => void;
   onCancel: () => void;
 }) => {
   const [firstName, setFirstName] = useState('');

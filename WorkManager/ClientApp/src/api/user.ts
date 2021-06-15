@@ -5,10 +5,10 @@ export enum UserRole {
   Manager = 1,
 }
 
-export const getUserRoleName = (user: User) =>
+export const getUserRoleName = (user: UserDto) =>
   user.role === UserRole.Manager ? 'Menadżer' : 'Pracownik';
 
-export interface User {
+export interface UserDto {
   id: number;
   userName: string;
   firstName: string;
@@ -33,29 +33,29 @@ interface UpdateUserRequestDto {
   role: UserRole;
 }
 
-export const getCurrentUser = async (callback: HttpResponseCallback<User>) =>
-  get<User>('users/current', callback);
+export const getCurrentUser = async (callback: HttpResponseCallback<UserDto>) =>
+  get<UserDto>('users/current', callback);
 
 export const updateCurrentUserPersonalInfo = async (
   request: UpdateCurrentUserPersonalInfoRequestDto,
-  callback: HttpResponseCallback<User>
-) => post<User>('users/current/personal-info', request, callback);
+  callback: HttpResponseCallback<UserDto>
+) => post<UserDto>('users/current/personal-info', request, callback);
 
 export const updateCurrentUserPassword = async (
   request: UpdateCurrentUserPasswordRequestDto,
-  callback: HttpResponseCallback<User>
-) => post<User>('users/current/password', request, callback);
+  callback: HttpResponseCallback<UserDto>
+) => post<UserDto>('users/current/password', request, callback);
 
-export const getUsers = async (callback: HttpResponseCallback<User[]>) =>
-  get<User[]>('users', callback);
+export const getUsers = async (callback: HttpResponseCallback<UserDto[]>) =>
+  get<UserDto[]>('users', callback);
 
 export const updateUser = async (
   id: number,
   request: UpdateUserRequestDto,
-  callback: HttpResponseCallback<User>
-) => put<User>(`users/${encodeURIComponent(id)}`, request, callback);
+  callback: HttpResponseCallback<UserDto>
+) => put<UserDto>(`users/${encodeURIComponent(id)}`, request, callback);
 
 export const removeUser = async (
   id: number,
-  callback: HttpResponseCallback<User>
-) => del<User>(`users/${encodeURIComponent(id)}`, callback);
+  callback: HttpResponseCallback<UserDto>
+) => del<UserDto>(`users/${encodeURIComponent(id)}`, callback);

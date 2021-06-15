@@ -98,7 +98,7 @@ export const EditResourcePanel = ({
           />
           <FormTextArea
             id='description'
-            label='Nazwisko'
+            label='Opis'
             value={description}
             onChange={setDescription}
           />

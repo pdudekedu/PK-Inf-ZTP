@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getUserRoleName, getUsers, User } from '../../api/user';
+import { getUserRoleName, getUsers, UserDto } from '../../api/user';
 import { authenticatedManager } from '../../authorization/authenticatedManager';
 import { toChunks } from '../../helpers/collections';
 import { EditUserPanel } from './edit-user-panel';
 
 export const Users = authenticatedManager(() => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<UserDto[]>([]);
+  const [selectedUser, setSelectedUser] = useState<UserDto | null>(null);
 
   useEffect(() => {
     getUsers({
@@ -16,7 +16,7 @@ export const Users = authenticatedManager(() => {
     });
   }, []);
 
-  const handleUserUpdate = (user: User) => {
+  const handleUserUpdate = (user: UserDto) => {
     const toReplace = users.find((u) => u.id === user.id);
     if (toReplace) {
       const newUsers = [...users];
@@ -25,7 +25,7 @@ export const Users = authenticatedManager(() => {
     }
   };
 
-  const handleUserRemove = (user: User) => {
+  const handleUserRemove = (user: UserDto) => {
     const toReplace = users.find((u) => u.id === user.id);
     if (toReplace) {
       const newUsers = [...users];
