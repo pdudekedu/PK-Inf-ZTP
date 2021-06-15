@@ -37,7 +37,7 @@ namespace WorkManager.Application.Teams
             {
                 Name = request.Name,
                 Description = request.Description,
-                Users = await _unitOfWork.Users.GetUsersById(request.Users)
+                Users = await _unitOfWork.Users.GetByIdsAsync(request.Users)
             };
 
             _unitOfWork.Teams.Add(team);

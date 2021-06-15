@@ -20,7 +20,6 @@ namespace WorkManager.Persistence.Entities
             builder.HasMany(x => x.Users).WithMany(x => x.Teams).UsingEntity<Team_User>(
                 x => x.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId),
                 x => x.HasOne(x => x.Team).WithMany().HasForeignKey(x => x.TeamId));
-
         }
     }
 }

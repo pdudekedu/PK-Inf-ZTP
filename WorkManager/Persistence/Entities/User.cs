@@ -13,6 +13,7 @@ namespace WorkManager.Persistence.Entities
         public string LastName { get; set; }
         public UserRole Role { get; set; } = UserRole.Worker;
         public ICollection<Team> Teams { get; set; }
+        public ICollection<Project> Projects { get; set; }
     }
 
     public enum UserRole

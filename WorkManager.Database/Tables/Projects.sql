@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Projects]
+(
+	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Name] NVARCHAR(200) NOT NULL,
+	[Description] NVARCHAR(MAX) NULL,
+	[TeamId] INT NOT NULL,
+	[UserId] INT NULL,
+	[InUse] BIT NOT NULL DEFAULT(1)
+)

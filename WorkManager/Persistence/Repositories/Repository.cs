@@ -26,6 +26,10 @@ namespace WorkManager.Persistence.Repositories
         {
             return await InUse.ToListAsync();
         }
+        public async Task<List<T>> GetByIdsAsync(IEnumerable<int> ids)
+        {
+            return await InUse.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
 
         public virtual void Update(T entity)
         {

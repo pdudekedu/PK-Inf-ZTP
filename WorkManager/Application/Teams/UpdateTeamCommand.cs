@@ -36,7 +36,7 @@ namespace WorkManager.Application.Teams
                 throw new NotFoundException("Zespół o podanym id nie istnieje");
             }
 
-            var toAdded = await _unitOfWork.Users.GetUsersById(request.Users.Where(x => !Team.Users.Any(y => y.Id == x)));
+            var toAdded = await _unitOfWork.Users.GetByIdsAsync(request.Users.Where(x => !Team.Users.Any(y => y.Id == x)));
 
             Team.Name = request.Name;
             Team.Description = request.Description;
