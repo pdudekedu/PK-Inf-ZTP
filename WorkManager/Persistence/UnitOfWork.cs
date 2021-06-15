@@ -6,10 +6,10 @@ namespace WorkManager.Persistence
     public interface IUnitOfWork
     {
         Task CommitAsync();
-        UserRepository Users { get; }
-        ResourceRepository Resources { get; }
-        TeamRepository Teams { get; }
-        ProjectRepository Projects { get; }
+        IUserRepository Users { get; }
+        IResourceRepository Resources { get; }
+        ITeamRepository Teams { get; }
+        IProjectRepository Projects { get; }
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -18,16 +18,16 @@ namespace WorkManager.Persistence
         public UnitOfWork(DataContext context)
         {
             _context = context;
-            Users = new(context);
-            Resources = new(context);
-            Teams = new(context);
-            Projects = new(context);
+            Users = new UserRepository(context);
+            Resources = new ResourceRepository(context);
+            Teams = new TeamRepository(context);
+            Projects = new ProjectRepository(context);
         }
 
-        public UserRepository Users { get; }
-        public ResourceRepository Resources { get; }
-        public TeamRepository Teams { get; }
-        public ProjectRepository Projects { get; }
+        public IUserRepository Users { get; }
+        public IResourceRepository Resources { get; }
+        public ITeamRepository Teams { get; }
+        public IProjectRepository Projects { get; }
 
 
         public async Task CommitAsync()

@@ -6,7 +6,11 @@ using WorkManager.Persistence.Entities;
 
 namespace WorkManager.Persistence.Repositories
 {
-    public class TeamRepository : Repository<Team>
+    public interface ITeamRepository : IRepository<Team>
+    {
+        
+    }
+    public class TeamRepository : Repository<Team>, ITeamRepository
     {
         public TeamRepository(DataContext context) : base(context)
         {

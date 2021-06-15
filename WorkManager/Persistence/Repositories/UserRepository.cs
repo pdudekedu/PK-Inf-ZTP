@@ -6,7 +6,14 @@ using WorkManager.Persistence.Entities;
 
 namespace WorkManager.Persistence.Repositories
 {
-    public class UserRepository : Repository<User>
+    public interface IUserRepository : IRepository<User>
+    {
+        Task<User> GetByUserNameAsync(string userName);
+        Task<bool> ExistsWithUserNameAsync(string userName);
+        Task<bool> ExistsUsersAsync(IReadOnlyList<int> ids);
+    }
+
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(DataContext context) : base(context)
         {
