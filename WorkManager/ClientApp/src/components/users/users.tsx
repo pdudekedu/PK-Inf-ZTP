@@ -29,7 +29,7 @@ export const Users = authenticatedManager(() => {
     const toReplace = users.find((u) => u.id === user.id);
     if (toReplace) {
       const newUsers = [...users];
-      newUsers.splice(users.indexOf(toReplace));
+      newUsers.splice(users.indexOf(toReplace), 1);
       setUsers(newUsers);
     }
   };
