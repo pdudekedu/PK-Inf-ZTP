@@ -4,14 +4,14 @@ export const FormInput = ({
   id,
   label,
   value,
-  type,
+  type = 'text',
   maxLength,
   onChange,
 }: {
   id: string;
   label: string;
   value: string;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'date';
   maxLength?: number;
   onChange: (value: string) => void;
 }) => {
@@ -21,7 +21,7 @@ export const FormInput = ({
     <div className='form-group'>
       <label htmlFor={forId}>{label}</label>
       <input
-        type={type ?? 'text'}
+        type={type}
         className='form-control'
         id={forId}
         value={value}

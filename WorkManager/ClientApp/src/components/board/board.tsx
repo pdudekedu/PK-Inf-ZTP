@@ -128,6 +128,8 @@ export const Board = authenticated(() => {
       state: TaskState.New,
       resources: [],
       user: null,
+      estimateEnd: null,
+      estimateStart: null,
     });
 
   const displayTasksFor = (state: TaskState) =>

@@ -53,6 +53,8 @@ export const EditTaskPanel = ({
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [estimateStart, setEstimateStart] = useState('');
+  const [estimateEnd, setEstimateEnd] = useState('');
   const [resources, setResources] = useState<ProjectResourceDto[]>([]);
   const [user, setUser] = useState(0);
 
@@ -78,6 +80,8 @@ export const EditTaskPanel = ({
     setName(task?.name ?? '');
     setDescription(task?.description ?? '');
     setResources(task?.resources ?? []);
+    setEstimateStart(task?.estimateStart?.substring(0, 10) ?? '');
+    setEstimateEnd(task?.estimateEnd?.substring(0, 10) ?? '');
 
     if (task) {
       setResourcesToAdd(
@@ -111,6 +115,8 @@ export const EditTaskPanel = ({
             description: description ?? null,
             resources,
             user: user ? { id: user, firstName: '', lastName: '' } : null,
+            estimateEnd: estimateEnd ?? null,
+            estimateStart: estimateStart ?? null,
           },
           {
             onSuccess: (response) => {
@@ -133,6 +139,8 @@ export const EditTaskPanel = ({
             description: description ?? null,
             resources,
             user: user ? { id: user, firstName: '', lastName: '' } : null,
+            estimateEnd: estimateEnd ?? null,
+            estimateStart: estimateStart ?? null,
           },
           {
             onSuccess: (response) => {
@@ -207,6 +215,20 @@ export const EditTaskPanel = ({
             label='Opis'
             value={description}
             onChange={setDescription}
+          />
+          <FormInput
+            id='estimateStart'
+            label='Szacowany czas rozpoczęcia'
+            type='date'
+            value={estimateStart}
+            onChange={setEstimateStart}
+          />
+          <FormInput
+            id='estimateEnd'
+            label='Szacowany czas zakończenia'
+            type='date'
+            value={estimateEnd}
+            onChange={setEstimateEnd}
           />
           <FormSelect
             id='user'
