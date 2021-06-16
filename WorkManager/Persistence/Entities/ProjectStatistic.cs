@@ -20,7 +20,7 @@ namespace WorkManager.Persistence.Entities
         public string Team { get; set; }
         public TimeSpan WorkTime { get; set; }
         public TimeSpan EstimateWorkTime { get; set; }
-        public double Punctuality { get; set; }
+        public decimal Punctuality { get; set; }
     }
     public class ProjectStatisticModelConfiguration : IEntityTypeConfiguration<ProjectStatistic>
     {
@@ -29,8 +29,8 @@ namespace WorkManager.Persistence.Entities
             builder.ToTable("ProjectsStatistics", "dbo");
             builder.HasNoKey();
 
-            builder.Property(x => x.WorkTime).HasConversion(x => x.TotalSeconds, x => TimeSpan.FromSeconds(x));
-            builder.Property(x => x.EstimateWorkTime).HasConversion(x => x.TotalSeconds, x => TimeSpan.FromSeconds(x));
+            builder.Property(x => x.WorkTime).HasConversion(x => (int)x.TotalSeconds, x => TimeSpan.FromSeconds(x));
+            builder.Property(x => x.EstimateWorkTime).HasConversion(x => (int)x.TotalSeconds, x => TimeSpan.FromSeconds(x));
 
 
         }
