@@ -10,6 +10,7 @@ import { getResources, ResourceDto } from '../../api/resource';
 import { getTeams, TeamDto } from '../../api/team';
 import { removeElementBy } from '../../helpers/collections';
 import { notifySuccess } from '../../helpers/notifications';
+import { ConfirmModal } from '../common/confirm-model';
 import { FormInput } from '../common/form-input';
 import { FormSelect } from '../common/form-select';
 import { FormSelectWithButton } from '../common/form-select-with-button';
@@ -40,6 +41,8 @@ export const EditProjectPanel = ({
   onAdded: (project: ProjectDto) => void;
   onCancel: () => void;
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const [availableResources, setAvailableResources] = useState<ResourceDto[]>([
     emptyResource,
   ]);
@@ -157,6 +160,7 @@ export const EditProjectPanel = ({
   const handleCancel = () => onCancel();
 
   const handleRemove = () => {
+    setShowConfirm(false);
     if (project) {
       removeProject(project.id, {
         onSuccess: (response) => {
@@ -200,6 +204,12 @@ export const EditProjectPanel = ({
 
   return (
     <div>
+      <ConfirmModal
+        show={showConfirm}
+        text='Czy na pewno chcesz usunąć projekt?'
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleRemove}
+      />
       {!project && <div>Wybierz projekt do edycji lub dodaj nowy</div>}
       {project && (
         <div>
@@ -266,13 +276,14 @@ export const EditProjectPanel = ({
             className='btn btn-block btn-secondary'
             type='button'
             value='Anuluj'
+            data-testid='btn-cancel'
             onClick={handleCancel}
           />
           <input
             className='btn btn-block btn-danger'
             type='button'
             value='Usuń'
-            onClick={handleRemove}
+            onClick={() => setShowConfirm(true)}
           />
         </div>
       )}

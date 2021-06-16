@@ -25,23 +25,38 @@ export const TaskStateAction = {
   [TaskState.New]: 'Otwórz',
   [TaskState.InProgress]: 'Rozpocznij',
   [TaskState.Waiting]: 'Wstrzymaj',
-  [TaskState.Done]: 'Zamknij',
+  [TaskState.Done]: 'Zakończ',
 };
+
+export interface TaskResourceDto {
+  id: number;
+  name: string;
+}
+
+export interface TaskUserDto {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
 
 export interface TaskDto {
   id: number;
   name: string;
   state: TaskState;
   description: string | null;
-  // estimateStart: Date | null;
-  // estimateEnd: Date | null;
+  user: TaskUserDto | null;
+  resources: TaskResourceDto[];
+  estimateStart: string | null;
+  estimateEnd: string | null;
 }
 
 export interface TaskRequestDto {
   name: string;
   description: string | null;
-  // estimateStart: Date | null;
-  // estimateEnd: Date | null;
+  user: TaskUserDto | null;
+  resources: TaskResourceDto[];
+  estimateStart: string | null;
+  estimateEnd: string | null;
 }
 
 const getTasksUrlFor = (projectId: number, taskId?: number) =>

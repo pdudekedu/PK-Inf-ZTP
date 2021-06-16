@@ -61,7 +61,9 @@ describe('EditTeamPanel', () => {
     expect(usersContainer).toBeInTheDocument();
 
     expect(screen.getByText('Zapisz')).toBeInTheDocument();
-    expect(screen.getByText('Anuluj')).toBeInTheDocument();
+    screen
+      .getAllByText('Anuluj')
+      .forEach((el) => expect(el).toBeInTheDocument());
     expect(screen.getByText('Usuń')).toBeInTheDocument();
   });
 
@@ -111,7 +113,9 @@ describe('EditTeamPanel', () => {
       expect(usersContainer).toContainHTML('<span>Jan Kowalski</span>');
 
       expect(screen.getByText('Zapisz')).toBeInTheDocument();
-      expect(screen.getByText('Anuluj')).toBeInTheDocument();
+      screen
+        .getAllByText('Anuluj')
+        .forEach((el) => expect(el).toBeInTheDocument());
       expect(screen.getAllByText('Usuń').length).toBeGreaterThan(0);
     }
   );
@@ -141,7 +145,7 @@ describe('EditTeamPanel', () => {
     );
 
     //act
-    fireEvent.click(screen.getByText('Anuluj'));
+    fireEvent.click(screen.getByTestId('btn-cancel'));
 
     //assert
     expect(mockCancel.mock.calls.length).toBe(1);

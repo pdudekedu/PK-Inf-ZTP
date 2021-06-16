@@ -66,7 +66,9 @@ describe('EditProjectPanel', () => {
     expect(usersContainer).toBeInTheDocument();
 
     expect(screen.getByText('Zapisz')).toBeInTheDocument();
-    expect(screen.getByText('Anuluj')).toBeInTheDocument();
+    screen
+      .getAllByText('Anuluj')
+      .forEach((el) => expect(el).toBeInTheDocument());
     expect(screen.getByText('Usuń')).toBeInTheDocument();
   });
 
@@ -131,7 +133,9 @@ describe('EditProjectPanel', () => {
       expect(resourcesContainer).toContainHTML('<span>zasób</span>');
 
       expect(screen.getByText('Zapisz')).toBeInTheDocument();
-      expect(screen.getByText('Anuluj')).toBeInTheDocument();
+      screen
+        .getAllByText('Anuluj')
+        .forEach((el) => expect(el).toBeInTheDocument());
       expect(screen.getAllByText('Usuń').length).toBeGreaterThan(0);
     }
   );
@@ -170,7 +174,7 @@ describe('EditProjectPanel', () => {
     );
 
     //act
-    fireEvent.click(screen.getByText('Anuluj'));
+    fireEvent.click(screen.getByTestId('btn-cancel'));
 
     //assert
     expect(mockCancel.mock.calls.length).toBe(1);

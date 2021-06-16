@@ -126,6 +126,10 @@ export const Board = authenticated(() => {
       name: '',
       description: null,
       state: TaskState.New,
+      resources: [],
+      user: null,
+      estimateEnd: null,
+      estimateStart: null,
     });
 
   const displayTasksFor = (state: TaskState) =>
@@ -165,19 +169,19 @@ export const Board = authenticated(() => {
           </div>
           <div className='row'>
             <div className='col-3 mt-2 mb-2 pl-2 pr-2 border-right border-mutated'>
-              <h6 className='text-center p-2'>NOWE</h6>
+              <h6 className='text-center text-secondary p-2'>NOWE</h6>
               {displayTasksFor(TaskState.New)}
             </div>
             <div className='col-3 mt-2 mb-2 pl-2 pr-2 border-right border-mutated'>
-              <h6 className='text-center p-2'>AKTYWNE</h6>
+              <h6 className='text-center text-secondary p-2'>AKTYWNE</h6>
               {displayTasksFor(TaskState.InProgress)}
             </div>
             <div className='col-3 mt-2 mb-2 pl-2 pr-2 border-right border-mutated'>
-              <h6 className='text-center p-2'>WSTRZYMANE</h6>
+              <h6 className='text-center text-secondary p-2'>WSTRZYMANE</h6>
               {displayTasksFor(TaskState.Waiting)}
             </div>
             <div className='col-3 mt-2 mb-2 pl-2 pr-2'>
-              <h6 className='text-center p-2'>ZAKOŃCZONE</h6>
+              <h6 className='text-center text-secondary p-2'>ZAKOŃCZONE</h6>
               {displayTasksFor(TaskState.Done)}
             </div>
           </div>

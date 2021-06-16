@@ -74,7 +74,9 @@ describe('EditUserPanel', () => {
       );
 
       expect(screen.getByText('Zapisz')).toBeInTheDocument();
-      expect(screen.getByText('Anuluj')).toBeInTheDocument();
+      screen
+        .getAllByText('Anuluj')
+        .forEach((el) => expect(el).toBeInTheDocument());
       expect(screen.getByText('Usuń')).toBeInTheDocument();
     }
   );
@@ -103,7 +105,7 @@ describe('EditUserPanel', () => {
     );
 
     //act
-    fireEvent.click(screen.getByText('Anuluj'));
+    fireEvent.click(screen.getByTestId('btn-cancel'));
 
     //assert
     expect(mockCancel.mock.calls.length).toBe(1);
