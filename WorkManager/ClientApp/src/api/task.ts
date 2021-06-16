@@ -28,11 +28,24 @@ export const TaskStateAction = {
   [TaskState.Done]: 'Zamknij',
 };
 
+export interface TaskResourceDto {
+  id: number;
+  name: string;
+}
+
+export interface TaskUserDto {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
 export interface TaskDto {
   id: number;
   name: string;
   state: TaskState;
   description: string | null;
+  user: TaskUserDto | null;
+  resources: TaskResourceDto[];
   // estimateStart: Date | null;
   // estimateEnd: Date | null;
 }
@@ -40,6 +53,8 @@ export interface TaskDto {
 export interface TaskRequestDto {
   name: string;
   description: string | null;
+  user: TaskUserDto | null;
+  resources: TaskResourceDto[];
   // estimateStart: Date | null;
   // estimateEnd: Date | null;
 }
