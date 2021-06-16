@@ -8,6 +8,7 @@ import {
 import { createTask, removeTask, TaskDto, updateTask } from '../../api/task';
 import { removeElementBy } from '../../helpers/collections';
 import { notifySuccess } from '../../helpers/notifications';
+import { ConfirmModal } from '../common/confirm-model';
 import { FormInput } from '../common/form-input';
 import { FormSelect } from '../common/form-select';
 import { FormSelectWithButton } from '../common/form-select-with-button';
@@ -38,6 +39,8 @@ export const EditTaskPanel = ({
   onAdded: (task: TaskDto) => void;
   onCancel: () => void;
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const [availableResources, setAvailableResources] = useState<
     ProjectResourceDto[]
   >([emptyResource]);
@@ -157,6 +160,7 @@ export const EditTaskPanel = ({
   const handleCancel = () => onCancel();
 
   const handleRemove = () => {
+    setShowConfirm(false);
     if (task) {
       removeTask(projectId, task.id, {
         onSuccess: (response) => {
@@ -200,6 +204,12 @@ export const EditTaskPanel = ({
 
   return (
     <div>
+      <ConfirmModal
+        show={showConfirm}
+        text='Czy na pewno chcesz usunąć zadanie?'
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleRemove}
+      />
       {!task && <div>Wybierz zadanie do edycji lub dodaj nowe</div>}
       {task && (
         <div>
@@ -288,7 +298,7 @@ export const EditTaskPanel = ({
             className='btn btn-block btn-danger'
             type='button'
             value='Usuń'
-            onClick={handleRemove}
+            onClick={() => setShowConfirm(true)}
           />
         </div>
       )}

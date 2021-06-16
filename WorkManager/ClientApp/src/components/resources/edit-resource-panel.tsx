@@ -6,6 +6,7 @@ import {
   updateResource,
 } from '../../api/resource';
 import { notifySuccess } from '../../helpers/notifications';
+import { ConfirmModal } from '../common/confirm-model';
 import { FormInput } from '../common/form-input';
 import { FormTextArea } from '../common/form-textarea';
 
@@ -22,6 +23,8 @@ export const EditResourcePanel = ({
   onAdded: (resource: ResourceDto) => void;
   onCancel: () => void;
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
@@ -73,6 +76,7 @@ export const EditResourcePanel = ({
   const handleCancel = () => onCancel();
 
   const handleRemove = () => {
+    setShowConfirm(false);
     if (resource) {
       removeResource(resource.id, {
         onSuccess: (response) => {
@@ -86,6 +90,12 @@ export const EditResourcePanel = ({
 
   return (
     <div>
+      <ConfirmModal
+        show={showConfirm}
+        text='Czy na pewno chcesz usunąć zasób?'
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleRemove}
+      />
       {!resource && <div>Wybierz zasób do edycji lub dodaj nowy</div>}
       {resource && (
         <div>
@@ -118,7 +128,7 @@ export const EditResourcePanel = ({
             className='btn btn-block btn-danger'
             type='button'
             value='Usuń'
-            onClick={handleRemove}
+            onClick={() => setShowConfirm(true)}
           />
         </div>
       )}

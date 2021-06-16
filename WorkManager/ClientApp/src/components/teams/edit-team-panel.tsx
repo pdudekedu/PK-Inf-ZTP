@@ -9,6 +9,7 @@ import {
 import { getUsers, UserDto } from '../../api/user';
 import { removeElementBy } from '../../helpers/collections';
 import { notifySuccess } from '../../helpers/notifications';
+import { ConfirmModal } from '../common/confirm-model';
 import { FormInput } from '../common/form-input';
 import { FormSelectWithButton } from '../common/form-select-with-button';
 import { FormTextArea } from '../common/form-textarea';
@@ -34,6 +35,8 @@ export const EditTeamPanel = ({
   onAdded: (team: TeamDto) => void;
   onCancel: () => void;
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const [availableUsers, setAvailableUsers] = useState<UserDto[]>([emptyUser]);
   const [usersToAdd, setUsersToAdd] = useState<UserDto[]>([emptyUser]);
   const [userToAdd, setUserToAdd] = useState(0);
@@ -110,6 +113,7 @@ export const EditTeamPanel = ({
   const handleCancel = () => onCancel();
 
   const handleRemove = () => {
+    setShowConfirm(false);
     if (team) {
       removeTeam(team.id, {
         onSuccess: (response) => {
@@ -151,6 +155,12 @@ export const EditTeamPanel = ({
 
   return (
     <div>
+      <ConfirmModal
+        show={showConfirm}
+        text='Czy na pewno chcesz usunąć zespół?'
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleRemove}
+      />
       {!team && <div>Wybierz zespół do edycji lub dodaj nowy</div>}
       {team && (
         <div>
@@ -218,7 +228,7 @@ export const EditTeamPanel = ({
             className='btn btn-block btn-danger'
             type='button'
             value='Usuń'
-            onClick={handleRemove}
+            onClick={() => setShowConfirm(true)}
           />
         </div>
       )}

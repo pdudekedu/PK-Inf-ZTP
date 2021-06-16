@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { removeUser, updateUser, UserDto, UserRole } from '../../api/user';
 import { notifySuccess } from '../../helpers/notifications';
+import { ConfirmModal } from '../common/confirm-model';
 import { FormInput } from '../common/form-input';
 import { FormSelect, FormSelectOption } from '../common/form-select';
 
@@ -20,6 +21,8 @@ export const EditUserPanel = ({
   onRemoved: (user: UserDto) => void;
   onCancel: () => void;
 }) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
@@ -60,7 +63,8 @@ export const EditUserPanel = ({
     }
   };
 
-  const handleRemoveUser = () => {
+  const handleRemove = () => {
+    setShowConfirm(false);
     if (user) {
       removeUser(user.id, {
         onSuccess: (response) => {
@@ -74,6 +78,12 @@ export const EditUserPanel = ({
 
   return (
     <div>
+      <ConfirmModal
+        show={showConfirm}
+        text='Czy na pewno chcesz usunąć użytkownika?'
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={handleRemove}
+      />
       {!user && <div>Wybierz użytkownika do edycji</div>}
       {user && (
         <div>
@@ -119,7 +129,7 @@ export const EditUserPanel = ({
             className='btn btn-block btn-danger'
             type='button'
             value='Usuń'
-            onClick={handleRemoveUser}
+            onClick={() => setShowConfirm(true)}
           />
         </div>
       )}
