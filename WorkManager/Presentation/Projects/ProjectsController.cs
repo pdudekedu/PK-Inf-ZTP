@@ -23,11 +23,27 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpGet()]
-        public async Task<ActionResult<List<ProjectDto>>> GetUsers()
+        public async Task<ActionResult<List<ProjectDto>>> Get()
         {
             var users = await _mediator.Send(new GetProjectsQuery());
 
             return _mapper.Map<List<ProjectDto>>(users);
+        }
+
+        [HttpGet("{id:int}/resources")]
+        public async Task<ActionResult<List<NamesDto>>> GetResources(int id)
+        {
+            var resources = await _mediator.Send(new GetResourcesQuery() { ProjectId = id });
+
+            return _mapper.Map<List<NamesDto>>(resources);
+        }
+
+        [HttpGet("{id:int}/users")]
+        public async Task<ActionResult<List<UserDto>>> GetUsers(int id)
+        {
+            var users = await _mediator.Send(new GetUsersQuery() { ProjectId = id });
+
+            return _mapper.Map<List<UserDto>>(users);
         }
 
         [HttpPost()]

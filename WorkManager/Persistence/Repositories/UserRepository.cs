@@ -33,6 +33,6 @@ namespace WorkManager.Persistence.Repositories
         {
             return await (InUse.Where(x => ids.Contains(x.Id)).CountAsync()) == ids.Count;
         }
-        
+
     }
 }

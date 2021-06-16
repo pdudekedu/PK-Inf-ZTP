@@ -9,6 +9,8 @@ namespace WorkManager.Persistence.Repositories
     public interface IProjectRepository : IRepository<Project>
     {
         Task<List<Project>> GetAllFor(int userId);
+        Task<List<Resource>> GetResourcesForProjectAsync(int projectId);
+        Task<List<User>> GetUsersForProjectAsync(int projectId);
     }
     public class ProjectRepository : Repository<Project>, IProjectRepository
     {
@@ -35,6 +37,23 @@ namespace WorkManager.Persistence.Repositories
         {
             return await InUse
                 .Where(p => p.Team.Users.Any(u => u.Id == userId))
+                .ToListAsync();
+        }
+        public async Task<List<User>> GetUsersForProjectAsync(int projectId)
+        {
+            return await InUse
+                .Include(x => x.Team)
+                .ThenInclude(x => x.Users)
+                .Where(x => x.Id == projectId)
+                .SelectMany(x => x.Team.Users)
+                .ToListAsync();
+        }
+        public async Task<List<Resource>> GetResourcesForProjectAsync(int projectId)
+        {
+            return await InUse
+                .Include(x => x.Resources)
+                .Where(x => x.Id == projectId)
+                .SelectMany(x => x.Resources)
                 .ToListAsync();
         }
     }
