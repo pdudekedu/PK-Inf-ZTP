@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
 using WorkManager.Persistence.Entities;
 
 namespace WorkManager.Presentation.Tasks
@@ -14,6 +15,8 @@ namespace WorkManager.Presentation.Tasks
         public string Description { get; set; }
         public DateTime? EstimateStart { get; set; }
         public DateTime? EstimateEnd { get; set; }
+        public IEnumerable<ResourceDto> Resources { get; set; }
+        public UserDto User { get; set; }
     }
 
     public class TaskDtoMappingProfile : Profile
@@ -21,7 +24,26 @@ namespace WorkManager.Presentation.Tasks
         public TaskDtoMappingProfile()
         {
             CreateMap<Persistence.Entities.Task, TaskDto>();
+                //.ForMember(dest => dest.Resources, opt => opt.MapFrom<ResourcesResolver>());
+
+            CreateMap<User, UserDto>();
+            CreateMap<Resource, ResourceDto>();
         }
     }
-  
+    public class ResourcesResolver : IValueResolver<Task, TaskDto, IEnumerable<ResourceDto>>
+    {
+        public IEnumerable<ResourceDto> Resolve(Task source, TaskDto destination, IEnumerable<ResourceDto> destMember, ResolutionContext context)
+        {
+            if (source.Resources != null)
+                foreach (var item in source.Resources)
+                {
+                    yield return new()
+                    {
+                        Name = item.Name,
+                        Id = item.Id
+                    };
+                }
+
+        }
+    }
 }

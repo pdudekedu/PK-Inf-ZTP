@@ -19,11 +19,17 @@ namespace WorkManager.Persistence.Repositories
         }
         public async Task<List<Entities.Task>> GetByProjectId(int projectId)
         {
-            return await Context.Tasks.Where(x => x.ProjectId == projectId).ToListAsync();
+            return await Context.Tasks
+                .Include(x => x.Resources)
+                .Include(x => x.User)
+                .Where(x => x.ProjectId == projectId).ToListAsync();
         }
         public async Task<Entities.Task> GetByProjectId(int projectId, int id)
         {
-            return await Context.Tasks.FirstOrDefaultAsync(x => x.ProjectId == projectId && x.Id == id);
+            return await Context.Tasks
+                .Include(x=>x.Resources)
+                .Include(x=>x.User)
+                .FirstOrDefaultAsync(x => x.ProjectId == projectId && x.Id == id);
         }
     }
 }

@@ -45,8 +45,12 @@ namespace WorkManager.Application.Projects
                 {
                     var toAdded = await _unitOfWork.Resources.GetByIdsAsync(request.Resources.Where(x => !Project.Resources.Any(y => y.Id == x)));
                     Project.Resources.AddRange(toAdded);
+                    Project.Resources.RemoveAll(x => !request.Resources.Contains(x.Id));
                 }
-                Project.Resources.RemoveAll(x => !request.Resources.Contains(x.Id));
+                else
+                {
+                    Project.Resources = await _unitOfWork.Resources.GetByIdsAsync(request.Resources);
+                }
             }
 
             Project.Name = request.Name;

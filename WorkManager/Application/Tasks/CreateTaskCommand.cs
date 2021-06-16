@@ -4,17 +4,21 @@ using WorkManager.Infrastructure.Authorization;
 using WorkManager.Persistence;
 using System.Threading.Tasks;
 using System;
+using WorkManager.Presentation.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WorkManager.Application.Tasks
 {
     public class CreateTaskCommand : IRequest<Persistence.Entities.Task>
     {
         public int ProjectId { get; set; }
-        public int UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? EstimateStart { get; set; }
         public DateTime? EstimateEnd { get; set; }
+        public IEnumerable<ResourceDto> Resources { get; set; }
+        public UserDto User { get; set; }
     }
 
     public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Persistence.Entities.Task>
@@ -36,7 +40,8 @@ namespace WorkManager.Application.Tasks
                 ProjectId = request.ProjectId,
                 EstimateStart = request.EstimateStart,
                 EstimateEnd = request.EstimateEnd,
-                UserId = request.UserId
+                Resources = request.Resources == null ? null : await _unitOfWork.Resources.GetByIdsAsync(request.Resources.Select(x=>x.Id)),
+                User = request.User != null ? await _unitOfWork.Users.GetAsync(request.User.Id) : null,
             };
 
             _unitOfWork.Tasks.Add(Task);

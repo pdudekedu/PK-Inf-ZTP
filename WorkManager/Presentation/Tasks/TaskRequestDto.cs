@@ -1,17 +1,19 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using System;
+using System.Collections.Generic;
 using WorkManager.Application.Tasks;
 
 namespace WorkManager.Presentation.Tasks
 {
     public class TaskRequestDto
     {
-        public int? UserId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? EstimateStart { get; set; }
         public DateTime? EstimateEnd { get; set; }
+        public IEnumerable<ResourceDto> Resources { get; set; }
+        public UserDto User { get; set; }
     }
 
     public class UpdateTaskDtoValidator : AbstractValidator<TaskRequestDto>

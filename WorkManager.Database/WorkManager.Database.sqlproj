@@ -66,6 +66,7 @@
     <Build Include="Tables\Projects.sql" />
     <Build Include="Tables\Project_Resource.sql" />
     <Build Include="Tables\Tasks.sql" />
+    <Build Include="Tables\Task_Resource.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PD.publish.xml" />
