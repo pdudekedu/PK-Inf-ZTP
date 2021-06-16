@@ -123,6 +123,7 @@ export const EditUserPanel = ({
             className='btn btn-block btn-secondary'
             type='button'
             value='Anuluj'
+            data-testid='btn-cancel'
             onClick={onCancel}
           />
           <input

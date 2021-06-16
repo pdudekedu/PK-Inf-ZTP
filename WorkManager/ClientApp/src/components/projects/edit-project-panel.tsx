@@ -276,6 +276,7 @@ export const EditProjectPanel = ({
             className='btn btn-block btn-secondary'
             type='button'
             value='Anuluj'
+            data-testid='btn-cancel'
             onClick={handleCancel}
           />
           <input
