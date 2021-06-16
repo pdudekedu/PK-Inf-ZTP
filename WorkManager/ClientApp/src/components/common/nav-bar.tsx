@@ -90,6 +90,19 @@ export const NavBar = () => {
               Użytkownicy
             </Link>
           </li>
+          <li
+            className={getLinkClass(pages.projectsState)}
+            key='nav-projectsState'
+          >
+            <Link className='nav-link' to={pages.projectsState}>
+              Stan projektów
+            </Link>
+          </li>
+          <li className={getLinkClass(pages.workTime)} key='nav-workTime'>
+            <Link className='nav-link' to={pages.workTime}>
+              Czas pracy
+            </Link>
+          </li>
         </>
       );
     } else {

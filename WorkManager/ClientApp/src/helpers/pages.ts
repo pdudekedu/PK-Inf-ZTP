@@ -8,4 +8,6 @@ export const pages = {
   resources: '/resources',
   teams: '/teams',
   projects: '/projects',
+  projectsState: '/projects-state',
+  workTime: '/work-time',
 };

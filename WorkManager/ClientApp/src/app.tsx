@@ -14,6 +14,8 @@ import { getCookie, removeCookie } from './helpers/cookies';
 import { Profile } from './components/profile';
 import { NavBar } from './components/common/nav-bar';
 import { Projects } from './components/projects/projects';
+import { ProjectsState } from './components/projects-state';
+import { WorkTime } from './components/work-time';
 
 export const App = () => {
   const [user, setUser] = useState<UserDto | null | 'unverified'>('unverified');
@@ -68,6 +70,12 @@ export const App = () => {
             <Route exact path={pages.resources} component={Resources}></Route>
             <Route exact path={pages.teams} component={Teams}></Route>
             <Route exact path={pages.projects} component={Projects}></Route>
+            <Route
+              exact
+              path={pages.projectsState}
+              component={ProjectsState}
+            ></Route>
+            <Route exact path={pages.workTime} component={WorkTime}></Route>
             <Route render={() => <Redirect to={pages.board} />} />
           </Switch>
         </div>
