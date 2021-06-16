@@ -64,7 +64,11 @@ namespace WorkManager.Application.Tasks
             if (request.User != null)
             {
                 Task.User = await _unitOfWork.Users.GetAsync(request.User.Id);
-            }    
+            }
+            else
+            {
+                Task.User = null;
+            }
 
             _unitOfWork.Tasks.Update(Task);
 
