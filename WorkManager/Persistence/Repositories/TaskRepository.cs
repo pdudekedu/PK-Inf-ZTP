@@ -29,6 +29,7 @@ namespace WorkManager.Persistence.Repositories
             return await Context.Tasks
                 .Include(x=>x.Resources)
                 .Include(x=>x.User)
+                .Include(x=>x.TaskTimes)
                 .FirstOrDefaultAsync(x => x.ProjectId == projectId && x.Id == id);
         }
     }

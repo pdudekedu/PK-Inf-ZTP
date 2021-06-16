@@ -11,6 +11,8 @@ namespace WorkManager.Persistence
         ITeamRepository Teams { get; }
         IProjectRepository Projects { get; }
         ITaskRepository Tasks { get; }
+        IUserStatisticRepository UserStatistic{ get; }
+        IProjectStatisticRepository ProjectStatistic { get; }
     }
     public class UnitOfWork : IUnitOfWork
     {
@@ -24,6 +26,8 @@ namespace WorkManager.Persistence
             Teams = new TeamRepository(context);
             Projects = new ProjectRepository(context);
             Tasks = new TaskRepository(context);
+            UserStatistic = new UserStatisticRepository(context);
+            ProjectStatistic = new ProjectStatisticRepository(context);
         }
 
         public IUserRepository Users { get; }
@@ -31,6 +35,8 @@ namespace WorkManager.Persistence
         public ITeamRepository Teams { get; }
         public IProjectRepository Projects { get; }
         public ITaskRepository Tasks { get; }
+        public IUserStatisticRepository UserStatistic { get; }
+        public IProjectStatisticRepository ProjectStatistic { get; }
 
         public async Task CommitAsync()
         {

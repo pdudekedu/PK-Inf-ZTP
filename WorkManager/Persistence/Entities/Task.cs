@@ -16,6 +16,7 @@ namespace WorkManager.Persistence.Entities
         public DateTime? EstimateEnd { get; set; }
         public User User { get; set; }
         public List<Resource> Resources { get; set; }
+        public List<TaskTime> TaskTimes { get; set; }
     }
     public enum TaskState
     {

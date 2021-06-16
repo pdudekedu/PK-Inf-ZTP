@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[TaskTimes]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[TaskId] INT NOT NULL,
+	[DateTime] DATETIME NOT NULL,
+	[Type] INT NOT NULL
+)

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Users.sql" />
@@ -67,6 +68,10 @@
     <Build Include="Tables\Project_Resource.sql" />
     <Build Include="Tables\Tasks.sql" />
     <Build Include="Tables\Task_Resource.sql" />
+    <Build Include="Tables\TaskTimes.sql" />
+    <Build Include="Views\TaskStatistics.sql" />
+    <Build Include="Views\UsersStatistics.sql" />
+    <Build Include="Views\ProjectsStatistics.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PD.publish.xml" />
