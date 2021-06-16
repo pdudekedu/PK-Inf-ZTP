@@ -1,0 +1,39 @@
+﻿CREATE VIEW [dbo].[TaskStatistics]
+	AS
+WITH CTE AS (
+	SELECT *, ROW_NUMBER() OVER (PARTITION BY TaskId ORDER BY DateTime) RN  FROM TaskTimes
+)
+,CTE_WORKTIME AS (
+	SELECT C1.TaskId,  DATEDIFF(SECOND, C1.DateTime, ISNULL(C2.DateTime, GETDATE())) DateTime FROM CTE C1
+	LEFT JOIN CTE C2 ON C1.RN + 1 = C2.RN AND C1.TaskId = C2.TaskId
+	WHERE C1.Type NOT IN (3,1)
+)
+,CTE_SUSPENDTIME AS (
+	SELECT C1.TaskId,  DATEDIFF(SECOND, C1.DateTime, ISNULL(C2.DateTime, GETDATE())) DateTime FROM CTE C1
+	LEFT JOIN CTE C2 ON C1.RN + 1 = C2.RN AND C1.TaskId = C2.TaskId
+	WHERE C1.Type = 1
+)
+,CTE_START AS (
+	SELECT TaskId, DateTime FROM TaskTimes WHERE [Type] = 0
+)
+,CTE_END AS (
+	SELECT TaskId, DateTime, Type, ROW_NUMBER() OVER (PARTITION BY TaskId ORDER BY DateTime DESC) RN FROM TaskTimes
+)
+,CTE_STAT AS (
+	SELECT Id TaskId, ProjectId, UserId, SUM(WT.DateTime) WorkTime, ISNULL(SUM(ST.DateTime), 0) SuspendTime
+	FROM Tasks T
+	JOIN CTE_WORKTIME WT ON T.ID = WT.TaskId  
+	LEFT JOIN CTE_SUSPENDTIME ST ON T.ID = ST.TaskId  
+	GROUP BY ID, ProjectId, UserId
+)
+SELECT CTE_STAT.*, EstimateStart, CS.DateTime ActualTime,  EstimateEnd, CE.DateTime ActualEndTime,
+	CASE 
+		WHEN EstimateEnd IS NULL THEN 0
+		WHEN DATEADD(DAY, 1, EstimateEnd) < ISNULL(CE.DateTime, GETDATE()) THEN 1
+		WHEN DATEADD(DAY, 1, EstimateEnd) < ISNULL(CE.DateTime, GETDATE()) THEN 1
+		ELSE 0
+	END Exceeded
+FROM CTE_STAT
+JOIN Tasks T ON T.ID = CTE_STAT.TaskId
+JOIN CTE_START CS ON T.ID = CS.TaskId  
+LEFT JOIN CTE_END CE ON T.ID = CE.TaskId AND  CE.RN = 1 AND CE.Type = 3

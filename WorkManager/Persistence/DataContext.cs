@@ -15,6 +15,8 @@ namespace WorkManager.Persistence
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Team_User> Team_Users { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectStatistic> ProjectsStatistics { get; set; }
+        public DbSet<UserStatistic> UsersStatistics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

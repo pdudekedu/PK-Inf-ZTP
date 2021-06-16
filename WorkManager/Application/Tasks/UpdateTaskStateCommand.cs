@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,8 +47,21 @@ namespace WorkManager.Application.Tasks
                 throw new ConflictException("Niepoprawna próba zmiany statusu.");
             }
 
+            Task.TaskTimes.Add(new TaskTime()
+            {
+                DateTime = DateTime.Now,
+                Type = (Task.State, request.State) switch
+                {
+                    (TaskState.New, TaskState.InProgress) => TaskTimeType.Start,
+                    (TaskState.InProgress, TaskState.Waiting) => TaskTimeType.Suspend,
+                    (TaskState.Waiting, TaskState.InProgress) => TaskTimeType.Resume,
+                    (TaskState.Done, TaskState.InProgress) => TaskTimeType.Resume,
+                    (TaskState.Waiting, TaskState.Done) => TaskTimeType.End,
+                    (TaskState.InProgress, TaskState.Done) => TaskTimeType.End,
+                    _ => TaskTimeType.Start
+                }
+            });
             Task.State = request.State;
-
             _unitOfWork.Tasks.Update(Task);
 
             await _unitOfWork.CommitAsync();
