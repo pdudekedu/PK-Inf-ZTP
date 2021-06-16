@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using WorkManager.Application.Projects;
 using WorkManager.Application.Users;
 using WorkManager.Infrastructure.Authorization;
 
@@ -27,6 +29,14 @@ namespace WorkManager.Presentation.Users
             var user = await _mediator.Send(new GetCurrentUserQuery());
 
             return _mapper.Map<UserDto>(user);
+        }
+
+        [HttpGet("projects")]
+        public async Task<ActionResult<List<ProjectDto>>> GetProjectsForCurrentUser()
+        {
+            var projects = await _mediator.Send(new GetProjectsForCurrentUserQuery());
+
+            return _mapper.Map<List<ProjectDto>>(projects);
         }
 
         [HttpPost("personal-info")]

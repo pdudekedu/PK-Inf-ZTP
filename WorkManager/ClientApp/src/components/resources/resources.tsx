@@ -35,7 +35,7 @@ export const Resources = authenticatedManager(() => {
     const toReplace = resources.find((u) => u.id === resource.id);
     if (toReplace) {
       const newResources = [...resources];
-      newResources.splice(resources.indexOf(toReplace));
+      newResources.splice(resources.indexOf(toReplace), 1);
       setResources(newResources);
     }
   };

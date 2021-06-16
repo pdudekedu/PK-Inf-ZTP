@@ -4,7 +4,7 @@ import Notifications from 'react-notify-toast';
 import { pages } from './helpers/pages';
 import { Login } from './components/login';
 import { Register } from './components/register';
-import { Board } from './components/board';
+import { Board } from './components/board/board';
 import { Users } from './components/users/users';
 import { Resources } from './components/resources/resources';
 import { Teams } from './components/teams/teams';

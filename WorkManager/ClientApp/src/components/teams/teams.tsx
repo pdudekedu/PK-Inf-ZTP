@@ -34,7 +34,7 @@ export const Teams = authenticatedManager(() => {
     const toReplace = teams.find((u) => u.id === team.id);
     if (toReplace) {
       const newTeams = [...teams];
-      newTeams.splice(teams.indexOf(toReplace));
+      newTeams.splice(teams.indexOf(toReplace), 1);
       setTeams(newTeams);
     }
   };

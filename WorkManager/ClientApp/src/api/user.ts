@@ -59,3 +59,12 @@ export const removeUser = async (
   id: number,
   callback: HttpResponseCallback<UserDto>
 ) => del<UserDto>(`users/${encodeURIComponent(id)}`, callback);
+
+export interface ProjectDto {
+  id: number;
+  name: string;
+}
+
+export const getProjectsForCurrentUser = async (
+  callback: HttpResponseCallback<ProjectDto[]>
+) => get<ProjectDto[]>('users/current/projects', callback);

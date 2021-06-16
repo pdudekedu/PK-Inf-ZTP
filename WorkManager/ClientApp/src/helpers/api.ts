@@ -40,6 +40,12 @@ export const put = async <T>(
   callback: HttpResponseCallback<T>
 ): Promise<void> => await http<T>(url, 'put', body, callback);
 
+export const patch = async <T>(
+  url: string,
+  body: any,
+  callback: HttpResponseCallback<T>
+): Promise<void> => await http<T>(url, 'patch', body, callback);
+
 export const del = async <T>(
   url: string,
   callback: HttpResponseCallback<T>
@@ -47,7 +53,7 @@ export const del = async <T>(
 
 const http = async <T>(
   url: string,
-  method: 'get' | 'post' | 'put' | 'delete',
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch',
   body: any | null,
   callback: HttpResponseCallback<T>
 ): Promise<void> => {

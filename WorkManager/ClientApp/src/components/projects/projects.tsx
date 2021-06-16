@@ -35,7 +35,7 @@ export const Projects = authenticatedManager(() => {
     const toReplace = projects.find((u) => u.id === project.id);
     if (toReplace) {
       const newProjects = [...projects];
-      newProjects.splice(projects.indexOf(toReplace));
+      newProjects.splice(projects.indexOf(toReplace), 1);
       setProjects(newProjects);
     }
   };
