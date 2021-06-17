@@ -8,7 +8,7 @@ using WorkManager.Infrastructure.Authorization;
 
 namespace WorkManager.Presentation.Tasks
 {
-    [AuthorizeManager]
+    [Authorize]
     [Route("api/projects/{projectId:int}/tasks")]
     [ApiController]
     public class TasksController : Controller

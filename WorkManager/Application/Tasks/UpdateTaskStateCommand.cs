@@ -34,7 +34,6 @@ namespace WorkManager.Application.Tasks
 
         public async Task<Persistence.Entities.Task> Handle(UpdateTaskStateCommand request, CancellationToken cancellationToken)
         {
-            //TODO: Walidacja istnienia obiektów
             var Task = await _unitOfWork.Tasks.GetByProjectId(request.ProjectId, request.Id);
 
             if (Task == null)

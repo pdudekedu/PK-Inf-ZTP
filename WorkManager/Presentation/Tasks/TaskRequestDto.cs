@@ -20,6 +20,10 @@ namespace WorkManager.Presentation.Tasks
     {
         public UpdateTaskDtoValidator()
         {
+            RuleFor(x => x)
+                .Must(x => !x.EstimateStart.HasValue || !x.EstimateEnd.HasValue || x.EstimateEnd >= x.EstimateStart)
+                .WithMessage("Data rozpoczęcia nie może być mniejsza od daty końca.");
+
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Nazwa nie może być pusta")
                 .MaximumLength(200).WithMessage("Nazwa nie może być dłuższa niż 200 znaków");

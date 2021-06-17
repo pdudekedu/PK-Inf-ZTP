@@ -8,7 +8,6 @@ using WorkManager.Infrastructure.Authorization;
 
 namespace WorkManager.Presentation.Projects
 {
-    [AuthorizeManager]
     [Route("api/projects")]
     [ApiController]
     public class ProjectsController : Controller
@@ -23,6 +22,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpGet()]
+        [Authorize]
         public async Task<ActionResult<List<ProjectDto>>> Get()
         {
             var users = await _mediator.Send(new GetProjectsQuery());
@@ -31,6 +31,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpGet("{id:int}/resources")]
+        [Authorize]
         public async Task<ActionResult<List<NamesDto>>> GetResources(int id)
         {
             var resources = await _mediator.Send(new GetResourcesQuery() { ProjectId = id });
@@ -39,6 +40,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpGet("{id:int}/users")]
+        [Authorize]
         public async Task<ActionResult<List<UserDto>>> GetUsers(int id)
         {
             var users = await _mediator.Send(new GetUsersQuery() { ProjectId = id });
@@ -47,6 +49,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpPost()]
+        [AuthorizeManager]
         public async Task<ActionResult<ProjectDto>> Create([FromBody] ProjectRequestDto requestDto)
         {
             var command = _mapper.Map<CreateProjectCommand>(requestDto);
@@ -57,6 +60,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpPut("{id:int}")]
+        [AuthorizeManager]
         public async Task<ActionResult<ProjectDto>> Update(
             [FromRoute] int id, [FromBody] ProjectRequestDto requestDto)
         {
@@ -69,6 +73,7 @@ namespace WorkManager.Presentation.Projects
         }
 
         [HttpDelete("{id:int}")]
+        [AuthorizeManager]
         public async Task<ActionResult<ProjectDto>> Remove([FromRoute] int id)
         {
             var removedUser = await _mediator.Send(new RemoveProjectCommand { Id = id });
