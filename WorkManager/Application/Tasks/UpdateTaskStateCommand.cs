@@ -39,7 +39,7 @@ namespace WorkManager.Application.Tasks
 
             if (Task == null)
             {
-                throw new NotFoundException("Zespół o podanym id nie istnieje");
+                throw new NotFoundException("Zadanie o podanym id nie istnieje w tym projekcie.");
             }
 
             if (!allowState[Task.State].Contains(request.State))
