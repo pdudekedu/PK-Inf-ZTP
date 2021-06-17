@@ -11,7 +11,7 @@ export const toChunks = <T>(array: T[], size: number) => {
 export const removeElement = <T>(array: T[], element: T) => {
   const newArray = [...array];
   const index = array.indexOf(element);
-  console.log(index);
+
   if (index !== -1) {
     newArray.splice(index, 1);
   }

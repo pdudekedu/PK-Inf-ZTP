@@ -104,15 +104,10 @@ export const Board = authenticated(() => {
             ...tasks,
             [newTask.state]: [...tasks[newTask.state], newTask],
           };
-          console.log(newTasks[task.state]);
-
           const toRemove = tasks[task.state].find((u) => u.id === task.id);
-          console.log(toRemove);
           if (toRemove) {
-            console.log(tasks[task.state].indexOf(toRemove));
             newTasks[task.state].splice(tasks[task.state].indexOf(toRemove), 1);
           }
-          console.log(newTasks[task.state]);
 
           setTasks(newTasks);
         },

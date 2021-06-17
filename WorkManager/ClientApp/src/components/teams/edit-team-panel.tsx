@@ -142,7 +142,6 @@ export const EditTeamPanel = ({
 
   const handleRemoveUser = (id: number) => {
     const user = availableUsers.find((x) => x.id === id);
-    console.log(user);
     if (user) {
       if (!usersToAdd.some((x) => x.id === user.id)) {
         setUsersToAdd([...usersToAdd, user]);

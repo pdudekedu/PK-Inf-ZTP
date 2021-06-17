@@ -191,7 +191,6 @@ export const EditTaskPanel = ({
 
   const handleRemoveResource = (id: number) => {
     const resource = availableResources.find((x) => x.id === id);
-    console.log(resource);
     if (resource) {
       if (!resourcesToAdd.some((x) => x.id === resource.id)) {
         setResourcesToAdd([...resourcesToAdd, resource]);
