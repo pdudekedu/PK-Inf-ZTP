@@ -32,13 +32,13 @@ namespace WorkManager.Application.Projects
 
         public async Task<Project> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {
-            //TODO: Walidacja istnienia obiektów
             var Project = await _unitOfWork.Projects.GetAsync(request.Id);
 
             if (Project == null)
             {
-                throw new NotFoundException("Zespół o podanym id nie istnieje");
+                throw new NotFoundException("Projekt o podanym id nie istnieje.");
             }
+
             if (request.Resources != null)
             {
                 if (Project.Resources != null)

@@ -24,7 +24,6 @@ namespace WorkManager.Presentation.Tasks
         public TaskDtoMappingProfile()
         {
             CreateMap<Persistence.Entities.Task, TaskDto>();
-                //.ForMember(dest => dest.Resources, opt => opt.MapFrom<ResourcesResolver>());
 
             CreateMap<User, UserDto>();
             CreateMap<Resource, ResourceDto>();
